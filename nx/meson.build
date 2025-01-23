@@ -1,6 +1,6 @@
 #---------------------------------------------------------------------------------
 # Compilation specific files
-#---------------------------------------------------------------------------------  
+#---------------------------------------------------------------------------------
 # Linker script
 nx_switch_ld = meson.current_source_dir() / 'switch.ld'
 
@@ -56,6 +56,7 @@ c_src = files(
     'source/kernel/rwlock.c',
     'source/kernel/semaphore.c',
     'source/kernel/shmem.c',
+    'source/kernel/svc.c',
     'source/kernel/thread.c',
     'source/kernel/tmem.c',
     'source/kernel/uevent.c',
@@ -198,7 +199,6 @@ c_src = files(
 )
 s_src = files(
     'source/arm/cache.s',
-    'source/kernel/svc.s',
     'source/runtime/exception.s',
     'source/runtime/readtp.s',
     'source/runtime/switch_crt0.s',
