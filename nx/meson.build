@@ -214,7 +214,7 @@ c_opts = ['-g', '-Wall', '-Werror', '-ffunction-sections', '-fdata-sections'] + 
 c_opts += ['-D__SWITCH__', '-DLIBNX_NO_DEPRECATION']
 cpp_opts = ['-fno-rtti', '-fno-exceptions', '-std=gnu++11']
 
-nx = static_library('nx',
+nx = static_library('libnx.a',
                     [c_src, s_src, data_default_font_src],
                     include_directories : include_directories(
                         'include/switch',
