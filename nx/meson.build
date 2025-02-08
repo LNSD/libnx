@@ -1,4 +1,19 @@
-## Source files
+#---------------------------------------------------------------------------------
+# Compilation specific files
+#---------------------------------------------------------------------------------  
+# Linker script
+nx_switch_ld = meson.current_source_dir() / 'switch.ld'
+
+# Spec file
+nx_switch_specs = meson.current_source_dir() / 'switch.specs'
+
+# Default NRO icon
+nx_default_icon = meson.current_source_dir() / 'default_icon.jpg'
+
+
+#---------------------------------------------------------------------------------
+# Source files
+#---------------------------------------------------------------------------------
 c_src = files(
     'source/applets/album_la.c',
     'source/applets/error.c',
@@ -188,15 +203,28 @@ s_src = files(
     'source/runtime/readtp.s',
     'source/runtime/switch_crt0.s',
 )
+
+#---------------------------------------------------------------------------------
+# Include directories
+#---------------------------------------------------------------------------------
 inc = include_directories(
     'include',
     'external/bsd/include',
 )
 
-# Data files
-data_default_font = 'data/default_font.bin'
+internal_inc = include_directories(
+    'include/switch',
+    'external/bsd/include',
+)
 
-# Preprocess data files
+#---------------------------------------------------------------------------------
+# Data files
+#---------------------------------------------------------------------------------
+data_src = files(
+    'data/default_font.bin',
+)
+
+# bin2s generator
 bin2s = find_program('bin2s', required : true)
 bin2s_gen = generator(bin2s,
                       output : ['@BASENAME@_bin.s', '@BASENAME@_bin.h'],
@@ -204,29 +232,5 @@ bin2s_gen = generator(bin2s,
                       capture : true,
 )
 
-data_default_font_src = bin2s_gen.process(data_default_font)
-
-
-## Static library
-# Compiler options
-arch_opts = ['-march=armv8-a+crc+crypto', '-mtune=cortex-a57', '-mtp=soft', '-fPIC', '-ftls-model=local-exec']
-c_opts = ['-g', '-Wall', '-Werror', '-ffunction-sections', '-fdata-sections'] + arch_opts
-c_opts += ['-D__SWITCH__', '-DLIBNX_NO_DEPRECATION']
-cpp_opts = ['-fno-rtti', '-fno-exceptions', '-std=gnu++11']
-
-nx = static_library('nx',
-                    [c_src, s_src, data_default_font_src],
-                    include_directories : include_directories(
-                        'include/switch',
-                        'external/bsd/include',
-                    ),
-                    c_args : c_opts,
-                    cpp_args : cpp_opts,
-)
-
-nx_dep = declare_dependency(
-    include_directories : inc,
-    link_with : nx
-)
-nx_switch_specs = meson.current_source_dir() / 'switch.specs'
-nx_default_icon = meson.current_source_dir() / 'default_icon.jpg'
+# Process data files
+data_gen_src = bin2s_gen.process(data_src)
