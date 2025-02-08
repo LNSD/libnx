@@ -229,3 +229,4 @@ nx_dep = declare_dependency(
     link_with : nx
 )
 nx_switch_specs = meson.current_source_dir() / 'switch.specs'
+nx_default_icon = meson.current_source_dir() / 'default_icon.jpg'
