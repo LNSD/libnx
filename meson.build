@@ -6,12 +6,19 @@ project('nx', 'c',
             'cpp_std=gnu++11', # -std=gnu++11
         ])
 
-# The project source code is in the nx subdir
-subdir('nx')
+#---------------------------------------------------------------------------------
+# Dependencies
+#---------------------------------------------------------------------------------
+# nx-svc
+nx_svc_proj = subproject('nx-svc')
+nx_svc_dep = nx_svc_proj.get_variable('nx_svc_dep')
 
 #---------------------------------------------------------------------------------
 # Static library
 #---------------------------------------------------------------------------------
+# The project source code is in the nx subdir
+subdir('nx')
+
 # Compiler options
 arch_opts = ['-march=armv8-a+crc+crypto', '-mtune=cortex-a57', '-mtp=soft', '-fPIC', '-ftls-model=local-exec']
 c_opts = ['-g', '-ffunction-sections', '-fdata-sections'] + arch_opts
@@ -21,6 +28,7 @@ cpp_opts = ['-fno-rtti', '-fno-exceptions']
 nx_lib = static_library('nx',
                         [c_src, s_src, data_gen_src],
                         include_directories : internal_inc,
+                        dependencies : [nx_svc_dep],
                         c_args : c_opts,
                         cpp_args : cpp_opts)
 

@@ -812,7 +812,7 @@ Result svcGetThreadContext3(ThreadContext* ctx, Handle thread);
  * @return Result code.
  * @note Syscall number 0x34.
  */
-Result svcWaitForAddress(void *address, u32 arb_type, s64 value, s64 timeout);
+Result svcWaitForAddress(void *address, ArbitrationType arb_type, s64 value, s64 timeout);
 
 /**
  * @brief Signals (and updates) an address depending on type and value. [4.0.0+]
@@ -823,7 +823,7 @@ Result svcWaitForAddress(void *address, u32 arb_type, s64 value, s64 timeout);
  * @return Result code.
  * @note Syscall number 0x35.
  */
-Result svcSignalToAddress(void *address, u32 signal_type, s32 value, s32 count);
+Result svcSignalToAddress(void *address, SignalType signal_type, s32 value, s32 count);
 
 ///@}
 
