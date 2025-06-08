@@ -1,5 +1,5 @@
 project('nx', 'c',
-        version : '4.7.0',
+        version : '4.9.0',
         default_options : [
             'warning_level=1', # -Wall
             'werror=true', # -Werror
