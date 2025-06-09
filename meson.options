@@ -1,0 +1,6 @@
+option(
+    'use_nx_svc',
+    type : 'feature', value : 'disabled',
+    description : 'Use nx-svc instead of libnx implementation',
+    yield : true
+)
