@@ -11,3 +11,10 @@ option(
     description : 'Use nx-sync instead of libnx implementation',
     yield : true
 )
+
+option(
+    'use_nx_time',
+    type : 'feature', value : 'disabled',
+    description : 'Use nx-time instead of libnx implementation',
+    yield : true
+)
