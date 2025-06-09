@@ -4,3 +4,10 @@ option(
     description : 'Use nx-svc instead of libnx implementation',
     yield : true
 )
+
+option(
+    'use_nx_sync',
+    type : 'feature', value : 'disabled',
+    description : 'Use nx-sync instead of libnx implementation',
+    yield : true
+)
