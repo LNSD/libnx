@@ -26,6 +26,13 @@ if get_option('use_nx_sync').enabled()
     deps += nx_sync_proj.get_variable('nx_sync_dep')
 endif
 
+# nx-time
+if get_option('use_nx_time').enabled()
+    nx_time_proj = subproject('nx-time')
+
+    deps += nx_time_proj.get_variable('nx_time_dep')
+endif
+
 #---------------------------------------------------------------------------------
 # Static library
 #---------------------------------------------------------------------------------
@@ -65,6 +72,14 @@ if get_option('use_nx_sync').enabled()
 
     nx_dep_deps += nx_sync_proj.get_variable('nx_sync_dep')
     nx_dep_link_args += ['-T', nx_sync_proj.get_variable('nx_sync_ld_override')]
+endif
+
+# Override time functions and propagate nx-time dependency
+if get_option('use_nx_time').enabled()
+    nx_time_proj = subproject('nx-time')
+
+    nx_dep_deps += nx_time_proj.get_variable('nx_time_dep')
+    nx_dep_link_args += ['-T', nx_time_proj.get_variable('nx_time_ld_override')]
 endif
 
 nx_dep = declare_dependency(
