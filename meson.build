@@ -19,6 +19,13 @@ if get_option('use_nx_svc').enabled()
     deps += nx_svc_proj.get_variable('nx_svc_dep')
 endif
 
+# nx-sync
+if get_option('use_nx_sync').enabled()
+    nx_sync_proj = subproject('nx-sync')
+
+    deps += nx_sync_proj.get_variable('nx_sync_dep')
+endif
+
 #---------------------------------------------------------------------------------
 # Static library
 #---------------------------------------------------------------------------------
@@ -50,6 +57,14 @@ if get_option('use_nx_svc').enabled()
 
     nx_dep_deps += nx_svc_proj.get_variable('nx_svc_dep')
     nx_dep_link_args += ['-T', nx_svc_proj.get_variable('nx_svc_ld_override')]
+endif
+
+# Override sync functions and propagate nx-sync dependency
+if get_option('use_nx_sync').enabled()
+    nx_sync_proj = subproject('nx-sync')
+
+    nx_dep_deps += nx_sync_proj.get_variable('nx_sync_dep')
+    nx_dep_link_args += ['-T', nx_sync_proj.get_variable('nx_sync_ld_override')]
 endif
 
 nx_dep = declare_dependency(
