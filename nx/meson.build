@@ -14,6 +14,7 @@ nx_default_icon = meson.current_source_dir() / 'default_icon.jpg'
 #---------------------------------------------------------------------------------
 # Source files
 #---------------------------------------------------------------------------------
+# C source files
 c_src = files(
     'source/applets/album_la.c',
     'source/applets/error.c',
@@ -196,6 +197,8 @@ c_src = files(
     'source/services/wlaninf.c',
     'source/sf/sessionmgr.c',
 )
+
+# Assembly source files
 s_src = files(
     'source/arm/cache.s',
     'source/kernel/svc.s',
@@ -204,14 +207,7 @@ s_src = files(
     'source/runtime/switch_crt0.s',
 )
 
-#---------------------------------------------------------------------------------
-# Include directories
-#---------------------------------------------------------------------------------
-inc = include_directories(
-    'include',
-    'external/bsd/include',
-)
-
+# Include dirs
 internal_inc = include_directories(
     'include/switch',
     'external/bsd/include',
@@ -234,3 +230,10 @@ bin2s_gen = generator(bin2s,
 
 # Process data files
 data_gen_src = bin2s_gen.process(data_src)
+
+
+#---------------------------------------------------------------------------------
+# Dependency declaration
+#---------------------------------------------------------------------------------
+# Include dirs
+nx_dep_inc = include_directories('include', 'external/bsd/include')
