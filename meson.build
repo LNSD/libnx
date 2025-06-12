@@ -33,6 +33,13 @@ if get_option('use_nx_thread').enabled()
     deps += nx_thread_proj.get_variable('nx_thread_dep')
 endif
 
+# nx-thread-tls
+if get_option('use_nx_thread_tls').enabled()
+    nx_thread_tls_proj = subproject('nx-thread-tls')
+
+    deps += nx_thread_tls_proj.get_variable('nx_thread_tls_dep')
+endif
+
 # nx-time
 if get_option('use_nx_time').enabled()
     nx_time_proj = subproject('nx-time')
@@ -87,6 +94,14 @@ if get_option('use_nx_thread').enabled()
 
     nx_dep_deps += nx_thread_proj.get_variable('nx_thread_dep')
     nx_dep_link_args += ['-T', nx_thread_proj.get_variable('nx_thread_ld_override')]
+endif
+
+# Override thread functions and propagate nx-thread dependency
+if get_option('use_nx_thread_tls').enabled()
+    nx_thread_tls_proj = subproject('nx-thread-tls')
+
+    nx_dep_deps += nx_thread_tls_proj.get_variable('nx_thread_tls_dep')
+    nx_dep_link_args += ['-T', nx_thread_tls_proj.get_variable('nx_thread_tls_ld_override')]
 endif
 
 # Override time functions and propagate nx-time dependency
