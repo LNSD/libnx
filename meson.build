@@ -47,6 +47,13 @@ if get_option('use_nx_time').enabled()
     deps += nx_time_proj.get_variable('nx_time_dep')
 endif
 
+# nx-rand
+if get_option('use_nx_rand').enabled()
+    nx_rand_proj = subproject('nx-rand')
+
+    deps += nx_rand_proj.get_variable('nx_rand_dep')
+endif
+
 #---------------------------------------------------------------------------------
 # Static library
 #---------------------------------------------------------------------------------
@@ -110,6 +117,14 @@ if get_option('use_nx_time').enabled()
 
     nx_dep_deps += nx_time_proj.get_variable('nx_time_dep')
     nx_dep_link_args += ['-T', nx_time_proj.get_variable('nx_time_ld_override')]
+endif
+
+# Override random functions and propagate nx-rand dependency
+if get_option('use_nx_rand').enabled()
+    nx_rand_proj = subproject('nx-rand')
+
+    nx_dep_deps += nx_rand_proj.get_variable('nx_rand_dep')
+    nx_dep_link_args += ['-T', nx_rand_proj.get_variable('nx_rand_ld_override')]
 endif
 
 nx_dep = declare_dependency(
