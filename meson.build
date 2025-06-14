@@ -54,6 +54,13 @@ if get_option('use_nx_rand').enabled()
     deps += nx_rand_proj.get_variable('nx_rand_dep')
 endif
 
+# nx-alloc
+if get_option('use_nx_alloc').enabled()
+    nx_alloc_proj = subproject('nx-alloc')
+
+    deps += nx_alloc_proj.get_variable('nx_alloc_dep')
+endif
+
 #---------------------------------------------------------------------------------
 # Static library
 #---------------------------------------------------------------------------------
@@ -125,6 +132,14 @@ if get_option('use_nx_rand').enabled()
 
     nx_dep_deps += nx_rand_proj.get_variable('nx_rand_dep')
     nx_dep_link_args += ['-T', nx_rand_proj.get_variable('nx_rand_ld_override')]
+endif
+
+# Override alloc functions and propagate nx-alloc dependency
+if get_option('use_nx_alloc').enabled()
+    nx_alloc_proj = subproject('nx-alloc')
+
+    nx_dep_deps += nx_alloc_proj.get_variable('nx_alloc_dep')
+    nx_dep_link_args += ['-T', nx_alloc_proj.get_variable('nx_alloc_ld_override')]
 endif
 
 nx_dep = declare_dependency(
