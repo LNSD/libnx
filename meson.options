@@ -34,16 +34,16 @@ option(
 )
 
 option(
-    'use_nx_thread',
-    type : 'feature', value : 'auto',    
-    description : 'Override all libnx functions with nx-thread functions',
+    'use_nx_sys_thread',
+    type : 'feature', value : 'auto',
+    description : 'Override all libnx functions with nx-sys-thread functions',
     yield : true
 )
 
 option(
-    'use_nx_thread_tls',
-    type : 'feature', value : 'auto',
-    description : 'Override all libnx functions with nx-thread-tls functions',
+    'use_nx_thread',
+    type : 'feature', value : 'auto',    
+    description : 'Override all libnx functions with nx-thread functions',
     yield : true
 )
 
